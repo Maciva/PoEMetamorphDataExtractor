@@ -46,21 +46,28 @@ public class Main {
     }
 
     private static void interpretString(String s){
-        String[] data = s.split(" ");
         Set<String> outputSet = new HashSet<>();
-        if(data.length == 1){
-            outputSet = containsOrgan(s) ? getMapsByOrganLowestMax(data[0]) : getOrgansByMap(data[0]);
-        }else if(data.length == 2) {
-            outputSet = getMapsByOrganWithMax(data[0], Integer.parseInt(data[1]));
+        if(s.contains("Map")){
+            outputSet = getOrgansByMap(s);
         }else {
-            System.out.println("Illegal number of Arguments. Type help for a quick introduction");
-            return;
+            String[] data = s.split(" ");
+            if(data.length == 1){
+                 if(containsOrgan(s)) outputSet = getMapsByOrganLowestMax(data[0]);
+            }else if(data.length == 2) {
+                try{
+                    if(containsOrgan(s)) outputSet = getMapsByOrganWithMax(data[0], Integer.parseInt(data[1]));
+                }catch (NumberFormatException e){
+                }
+            }else {
+                System.out.println("Illegal number of Arguments. Type help for a quick introduction");
+                return;
+            }
+            if(outputSet.size() == 0){
+                System.out.println("Illegal Arguments. Make sure you have no typo. Type help for a quick introduction");
+                return;
+            }
         }
-        if(outputSet.size() == 0){
-            System.out.println("Illegal Arguments. Make sure you have no typo. Type help for a quick introduction");
-            return;
-        }
-        System.out.println(outputSet.stream().collect(Collectors.joining("\n")));
+        System.out.println(String.join("\n", outputSet));
     }
 
     private static boolean containsOrgan(String s){
