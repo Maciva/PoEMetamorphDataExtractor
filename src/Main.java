@@ -55,7 +55,8 @@ public class Main {
                  if(containsOrgan(s)) outputSet = getMapsByOrganLowestMax(data[0]);
             }else if(data.length == 2) {
                 try{
-                    if(containsOrgan(s)) outputSet = getMapsByOrganWithMax(data[0], Integer.parseInt(data[1]));
+                    if(containsOrgan(data[0])) outputSet = getMapsByOrganWithMax(data[0], Integer.parseInt(data[1]));
+                    System.out.println(outputSet);
                 }catch (NumberFormatException e){
                 }
             }else {
